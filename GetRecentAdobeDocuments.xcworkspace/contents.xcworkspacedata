@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:BDAlias/BDAlias.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:GetRecentAdobeDocumentsLib/GetRecentAdobeDocumentsLib.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:GetRecentAcrobatDocuments/GetRecentAcrobatDocuments.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:GetRecentPhotoshopDocuments/GetRecentPhotoshopDocuments.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:GetRecentIllustratorDocuments/GetRecentIllustratorDocuments.xcodeproj">
+   </FileRef>
+</Workspace>

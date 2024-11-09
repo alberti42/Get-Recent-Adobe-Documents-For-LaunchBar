@@ -1,0 +1,299 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		651F07AD2039AE8C009FC5AB /* GetRecentAdobeDocumentsLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 651F07AC2039AE8C009FC5AB /* GetRecentAdobeDocumentsLib.h */; };
+		651F07AF2039AE8C009FC5AB /* GetRecentAdobeDocumentsLib.m in Sources */ = {isa = PBXBuildFile; fileRef = 651F07AE2039AE8C009FC5AB /* GetRecentAdobeDocumentsLib.m */; };
+		651F07FB2039CBAC009FC5AB /* BDAlias.h in Headers */ = {isa = PBXBuildFile; fileRef = 651F07FA2039CBAC009FC5AB /* BDAlias.h */; };
+		651F07FD2039CC31009FC5AB /* libBDAlias.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 651F07FE2039CC31009FC5AB /* libBDAlias.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		651F07A92039AE8C009FC5AB /* libGetRecentAdobeDocumentsLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGetRecentAdobeDocumentsLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		651F07AC2039AE8C009FC5AB /* GetRecentAdobeDocumentsLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetRecentAdobeDocumentsLib.h; sourceTree = "<group>"; };
+		651F07AE2039AE8C009FC5AB /* GetRecentAdobeDocumentsLib.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetRecentAdobeDocumentsLib.m; sourceTree = "<group>"; };
+		651F07FA2039CBAC009FC5AB /* BDAlias.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BDAlias.h; path = ../../BDAlias/BDAlias/BDAlias.h; sourceTree = "<group>"; };
+		651F07FE2039CC31009FC5AB /* libBDAlias.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libBDAlias.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		651F07A62039AE8C009FC5AB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				651F07FD2039CC31009FC5AB /* libBDAlias.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		651F07A02039AE8C009FC5AB = {
+			isa = PBXGroup;
+			children = (
+				651F07AB2039AE8C009FC5AB /* GetRecentAdobeDocumentsLib */,
+				651F07AA2039AE8C009FC5AB /* Products */,
+				651F07FC2039CC31009FC5AB /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		651F07AA2039AE8C009FC5AB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				651F07A92039AE8C009FC5AB /* libGetRecentAdobeDocumentsLib.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		651F07AB2039AE8C009FC5AB /* GetRecentAdobeDocumentsLib */ = {
+			isa = PBXGroup;
+			children = (
+				651F07FA2039CBAC009FC5AB /* BDAlias.h */,
+				651F07AC2039AE8C009FC5AB /* GetRecentAdobeDocumentsLib.h */,
+				651F07AE2039AE8C009FC5AB /* GetRecentAdobeDocumentsLib.m */,
+			);
+			path = GetRecentAdobeDocumentsLib;
+			sourceTree = "<group>";
+		};
+		651F07FC2039CC31009FC5AB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				651F07FE2039CC31009FC5AB /* libBDAlias.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		651F07A72039AE8C009FC5AB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				651F07AD2039AE8C009FC5AB /* GetRecentAdobeDocumentsLib.h in Headers */,
+				651F07FB2039CBAC009FC5AB /* BDAlias.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		651F07A82039AE8C009FC5AB /* GetRecentAdobeDocumentsLib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 651F07B22039AE8C009FC5AB /* Build configuration list for PBXNativeTarget "GetRecentAdobeDocumentsLib" */;
+			buildPhases = (
+				651F07A52039AE8C009FC5AB /* Sources */,
+				651F07A62039AE8C009FC5AB /* Frameworks */,
+				651F07A72039AE8C009FC5AB /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GetRecentAdobeDocumentsLib;
+			productName = GetRecentAdobeDocumentsLib;
+			productReference = 651F07A92039AE8C009FC5AB /* libGetRecentAdobeDocumentsLib.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		651F07A12039AE8C009FC5AB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = "Andrea Alberti";
+				TargetAttributes = {
+					651F07A82039AE8C009FC5AB = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 651F07A42039AE8C009FC5AB /* Build configuration list for PBXProject "GetRecentAdobeDocumentsLib" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 651F07A02039AE8C009FC5AB;
+			productRefGroup = 651F07AA2039AE8C009FC5AB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				651F07A82039AE8C009FC5AB /* GetRecentAdobeDocumentsLib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		651F07A52039AE8C009FC5AB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				651F07AF2039AE8C009FC5AB /* GetRecentAdobeDocumentsLib.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		651F07B02039AE8C009FC5AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		651F07B12039AE8C009FC5AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		651F07B32039AE8C009FC5AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JN9J64AVMZ;
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		651F07B42039AE8C009FC5AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JN9J64AVMZ;
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		651F07A42039AE8C009FC5AB /* Build configuration list for PBXProject "GetRecentAdobeDocumentsLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				651F07B02039AE8C009FC5AB /* Debug */,
+				651F07B12039AE8C009FC5AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		651F07B22039AE8C009FC5AB /* Build configuration list for PBXNativeTarget "GetRecentAdobeDocumentsLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				651F07B32039AE8C009FC5AB /* Debug */,
+				651F07B42039AE8C009FC5AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 651F07A12039AE8C009FC5AB /* Project object */;
+}
