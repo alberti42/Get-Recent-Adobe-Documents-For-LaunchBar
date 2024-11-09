@@ -1,2 +1,3 @@
-# Get-Recent-Adobe-Documents-For-LaunchBar
-Get recent Adobe documents for LaunchBar
+# Get Recent Adobe Documents for LaunchBar
+
+Get Recent Adobe documents for LaunchBar
