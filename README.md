@@ -2,7 +2,7 @@
 
 This repository provides a suite of LaunchBar actions for accessing recent documents in Adobe applications. The actions are designed to streamline access to recent files, enhancing productivity for users working with Adobe [Acrobat](https://www.adobe.com/acrobat.html), [Photoshop](https://www.adobe.com/products/photoshop.html), and [Illustrator](https://www.adobe.com/products/illustrator.html). Each action is configured for quick retrieval and execution, integrating directly with LaunchBar for macOS.
 
-<img alt="Screenshot" src="Images/Photoshop_screenshot.jpg" width="551">
+<img alt="Screenshot" src="Images/Photoshop_screenshot.jpg" width="1102">
 
 ## Contents
 
