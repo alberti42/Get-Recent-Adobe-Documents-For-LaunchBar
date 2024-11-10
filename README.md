@@ -2,6 +2,8 @@
 
 This repository provides a suite of LaunchBar [actions](https://www.obdev.at/products/launchbar/actions.html) for accessing recent Adobe documents. The actions are designed to streamline access to recent files for users working with Adobe [Acrobat](https://www.adobe.com/acrobat.html), [Photoshop](https://www.adobe.com/products/photoshop.html), and [Illustrator](https://www.adobe.com/products/illustrator.html).
 
+<img alt="Screenshot" src="Images/Photoshop_screenshot.jpg" width="1102">
+
 ## Contents
 
 This repository includes the following components:
