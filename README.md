@@ -20,7 +20,7 @@ This repository includes the following components:
 
 ### Option 1: Manual Installation
 
-1. **Download** the pre-packaged actions from the [Actions.zip](Actions.zip).
+1. **Download** the pre-packaged actions from the [Actions.zip](https://github.com/alberti42/Get-Recent-Adobe-Documents-For-LaunchBar/raw/refs/heads/main/Actions.zip).
 2. **Extract** the contents, which include:
    - `Recent Acrobat Documents.lbaction`
    - `Recent Illustrator Documents.lbaction`
