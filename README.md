@@ -1,6 +1,6 @@
 # Get Recent Adobe Documents for LaunchBar
 
-This repository provides a suite of LaunchBar actions for accessing recent documents in Adobe applications. The actions are designed to streamline access to recent files, enhancing productivity for users working with Adobe [Acrobat](https://www.adobe.com/acrobat.html), [Photoshop](https://www.adobe.com/products/photoshop.html), and [Illustrator](https://www.adobe.com/products/illustrator.html). Each action is configured for quick retrieval and execution, integrating directly with LaunchBar for macOS.
+This repository provides a suite of LaunchBar [actions](https://www.obdev.at/products/launchbar/actions.html) for accessing recent Adobe documents. The actions are designed to streamline access to recent files for users working with Adobe [Acrobat](https://www.adobe.com/acrobat.html), [Photoshop](https://www.adobe.com/products/photoshop.html), and [Illustrator](https://www.adobe.com/products/illustrator.html).
 
 ## Contents
 
