@@ -77,7 +77,7 @@ To compile the `GetRecentPhotoshopDocuments`, `GetRecentIllustratorDocuments`, a
 
 If you find this plugin helpful, consider supporting its development with a donation.
 
-[<img src="images/buy_me_coffee.png" width=300 alt="Buy Me a Coffee QR Code"/>](https://buymeacoffee.com/alberti)
+[<img src="Images/buy_me_coffee.png" width=300 alt="Buy Me a Coffee QR Code"/>](https://buymeacoffee.com/alberti)
 
 ## Author
 
