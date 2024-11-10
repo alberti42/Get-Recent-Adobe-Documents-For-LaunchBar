@@ -71,7 +71,7 @@ To compile the `GetRecentPhotoshopDocuments`, `GetRecentIllustratorDocuments`, a
 ## Usage
 
 - Activate LaunchBar and type the name of the desired Adobe application.
-- Use the corresponding action to view and open recent documents directly from LaunchBar.
+- Press space to display directly from LaunchBar the recent documents of the selected Adobe application.
 
 ## Donations
 
