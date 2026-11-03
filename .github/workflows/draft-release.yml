@@ -131,7 +131,9 @@ jobs:
         run: |
           for BUNDLE in build/Actions/*.lbaction; do
             codesign --verify --strict --check-notarization -R="notarized" --verbose "$BUNDLE"
-            OUT=$(spctl --assess --type execute --verbose=4 "$BUNDLE" 2>&1 || true)
+            # --type open: what Gatekeeper checks when you double-click the action.
+            # --type execute answers "does not seem to be an app" for an .lbaction.
+            OUT=$(spctl --assess --type open --context context:primary-signature --verbose=4 "$BUNDLE" 2>&1 || true)
             echo "$OUT"
             echo "$OUT" | grep -q "source=Notarized Developer ID"
           done
