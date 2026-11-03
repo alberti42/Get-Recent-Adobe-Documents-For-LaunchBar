@@ -5,7 +5,8 @@ name: Build, Notarize and Draft Release
 # Pipeline:
 #   1. Build the three tools universal (arm64 + x86_64) with bin/build_actions.sh
 #   2. Sign each tool, then its .lbaction bundle, with the Developer ID Application certificate
-#   3. Notarize Actions.zip with Apple, staple the ticket to each .lbaction bundle, re-zip
+#   3. Notarize Actions.zip with Apple. stapler refuses an .lbaction bundle, so
+#      Gatekeeper fetches the ticket online when an action is first opened.
 #   4. Attest build provenance for the ZIP (Sigstore, verifiable with gh attestation verify)
 #   5. Create a draft GitHub release with the ZIP attached
 #
@@ -122,21 +123,17 @@ jobs:
             codesign --verify --strict --check-notarization -R="notarized" --verbose "$TOOL"
           done
 
-      # Gatekeeper checks the .lbaction bundle when you double-click it. The
-      # stapled ticket lets it do so without asking Apple's servers.
-      - name: Staple the ticket to each action and re-zip
-        env:
-          ZIP: ${{ steps.ver.outputs.zip }}
+      # Gatekeeper checks the .lbaction bundle when you double-click it.
+      # stapler refuses an .lbaction ("Stapler is incapable of working with
+      # Folder files"), so Gatekeeper fetches the bundle's ticket online.
+      - name: Check that Gatekeeper accepts each action
         run: |
           for BUNDLE in build/Actions/*.lbaction; do
-            xcrun stapler staple "$BUNDLE"
-            xcrun stapler validate "$BUNDLE"
+            codesign --verify --strict --check-notarization -R="notarized" --verbose "$BUNDLE"
             OUT=$(spctl --assess --type execute --verbose=4 "$BUNDLE" 2>&1)
             echo "$OUT"
             echo "$OUT" | grep -q "source=Notarized Developer ID"
           done
-          rm "$ZIP"
-          (cd build/Actions && ditto -c -k --norsrc . ../Actions.zip)
 
       # ── Build provenance ──────────────────────────────────────────────────────
       # Records a signed SLSA provenance statement: this ZIP (by its SHA-256) was

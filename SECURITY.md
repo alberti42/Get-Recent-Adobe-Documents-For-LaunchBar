@@ -22,7 +22,7 @@ Include the version of the action (`CFBundleVersion` in the action's `Contents/I
 
   From each entry the tool takes the document's path, checks that the file still exists, and prints at most 50 documents (name, folder and path) as JSON to LaunchBar. It does not open the documents.
 - The tools write no file and make no network connection. If a tool fails with an exception, it writes the exception message to the macOS system log.
-- Each action in a release is built by GitHub Actions from the tagged source. The tool and the `.lbaction` bundle are signed with a Developer ID with the hardened runtime and notarized by Apple, and the notarization ticket is stapled to the bundle. `Actions.zip` carries a build provenance attestation. To check where a downloaded `Actions.zip` was built:
+- Each action in a release is built by GitHub Actions from the tagged source. The tool and the `.lbaction` bundle are signed with a Developer ID with the hardened runtime and notarized by Apple. Gatekeeper fetches the notarization ticket online the first time you open an action. `Actions.zip` carries a build provenance attestation. To check where a downloaded `Actions.zip` was built:
 
   ```sh
   gh attestation verify Actions.zip --repo alberti42/Get-Recent-Adobe-Documents-For-LaunchBar

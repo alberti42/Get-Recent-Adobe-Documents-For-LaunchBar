@@ -5,7 +5,7 @@ name: Verify Published Release
 #   1. Build provenance: the ZIP was built by draft-release.yml from a tag.
 #   2. Code signature of each tool: valid, and made with the Developer ID of team 9V3X7C8VCK.
 #   3. Notarization: Apple serves a ticket for each tool.
-#   4. Each .lbaction bundle: signature and team, stapled ticket, and Gatekeeper
+#   4. Each .lbaction bundle: signature and team, notarization, and Gatekeeper
 #      accepts it as "Notarized Developer ID".
 #
 # Runs weekly, when a release is published, and on demand. A check can fail with
@@ -65,13 +65,13 @@ jobs:
             codesign --verify --strict --check-notarization -R="notarized" --verbose "$TOOL"
           done
 
-      - name: Verify each action bundle (signature, stapled ticket, Gatekeeper)
+      - name: Verify each action bundle (signature, notarization, Gatekeeper)
         run: |
           for BUNDLE in extracted/*.lbaction; do
             codesign --verify --strict --deep --verbose=2 "$BUNDLE"
             TEAM=$(codesign -dv "$BUNDLE" 2>&1 | sed -n 's/^TeamIdentifier=//p')
             test "$TEAM" = "$TEAM_ID"
-            xcrun stapler validate "$BUNDLE"
+            codesign --verify --strict --check-notarization -R="notarized" --verbose "$BUNDLE"
             OUT=$(spctl --assess --type execute --verbose=4 "$BUNDLE" 2>&1)
             echo "$OUT"
             echo "$OUT" | grep -q "source=Notarized Developer ID"
