@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
-- The actions showed no documents on Macs with System Integrity Protection enabled: macOS killed the tools, which carried no code signature. The tools are now signed with a Developer ID and notarized by Apple.
+- The actions showed no documents on Macs with System Integrity Protection enabled: macOS killed the tools, which carried no code signature. The actions and their tools are now signed with a Developer ID and notarized by Apple.
 
 ### Changed
 

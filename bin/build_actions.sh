@@ -10,9 +10,9 @@
 #   1. Builds GetRecent<App>Documents in Release for arm64 and x86_64 with xcodebuild.
 #   2. Copies Actions/Recent <App> Documents.lbaction to build/Actions/ and puts
 #      the tool into its Contents/Scripts.
-#   3. Signs the tool with the identity given as first argument ("-", ad hoc, by
-#      default). A Developer ID signature gets the hardened runtime and a secure
-#      timestamp, which notarization requires.
+#   3. Signs the tool, then the bundle, with the identity given as first argument
+#      ("-", ad hoc, by default). A Developer ID signature gets the hardened
+#      runtime and a secure timestamp, which notarization requires.
 # Then it packs build/Actions/*.lbaction into build/Actions.zip.
 #
 # macOS kills an arm64 executable that carries no signature, so every tool is signed.
@@ -51,13 +51,17 @@ for APP in "${APPS[@]}"; do
 
     # The tool's signing identifier is the action's bundle identifier.
     ID=$(plutil -extract CFBundleIdentifier raw "$SRC/Contents/Info.plist")
-    if [[ "$IDENTITY" == "-" ]]; then
-        codesign --force --sign - --identifier "$ID" "$BUNDLE/Contents/Scripts/$TOOL"
-    else
-        codesign --force --sign "$IDENTITY" --identifier "$ID" \
-            --options runtime --timestamp "$BUNDLE/Contents/Scripts/$TOOL"
-    fi
-    codesign --verify --strict "$BUNDLE/Contents/Scripts/$TOOL"
+    # Sign the tool, then the bundle: Gatekeeper checks the bundle when you
+    # double-click it, and the bundle's signature seals the signed tool.
+    for CODE in "$BUNDLE/Contents/Scripts/$TOOL" "$BUNDLE"; do
+        if [[ "$IDENTITY" == "-" ]]; then
+            codesign --force --sign - --identifier "$ID" "$CODE"
+        else
+            codesign --force --sign "$IDENTITY" --identifier "$ID" \
+                --options runtime --timestamp "$CODE"
+        fi
+    done
+    codesign --verify --strict --deep "$BUNDLE"
 done
 
 # ditto keeps the bundle layout; --norsrc leaves out extended attributes.
