@@ -54,7 +54,8 @@ if git diff --cached --quiet; then
 else
     git commit -m "Version bump to ${VERSION}"
 fi
-git tag "$VERSION"
+# --no-sign: with tag.gpgsign set, a plain "git tag" asks for a message and fails.
+git tag --no-sign "$VERSION"
 
 echo "Tagged ${VERSION}. Push when ready:"
 echo "  git push origin main --tags"
