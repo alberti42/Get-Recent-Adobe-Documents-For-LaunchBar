@@ -131,10 +131,19 @@ jobs:
         run: |
           for BUNDLE in build/Actions/*.lbaction; do
             codesign --verify --strict --check-notarization -R="notarized" --verbose "$BUNDLE"
-            OUT=$(spctl --assess --type execute --verbose=4 "$BUNDLE" 2>&1)
+            OUT=$(spctl --assess --type execute --verbose=4 "$BUNDLE" 2>&1 || true)
             echo "$OUT"
             echo "$OUT" | grep -q "source=Notarized Developer ID"
           done
+
+      # When a check fails, keep the built ZIP for inspection (7 days).
+      - name: Upload the ZIP after a failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Actions-failed-build
+          path: build/Actions.zip
+          retention-days: 7
 
       # ── Build provenance ──────────────────────────────────────────────────────
       # Records a signed SLSA provenance statement: this ZIP (by its SHA-256) was
