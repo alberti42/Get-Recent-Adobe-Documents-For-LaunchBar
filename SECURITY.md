@@ -32,7 +32,7 @@ Include the version of the action (`CFBundleVersion` in the action's `Contents/I
 - To check a downloaded action before you install it:
 
   ```sh
-  spctl --assess --type execute --verbose "Recent Photoshop Documents.lbaction"
+  spctl --assess --type open --context context:primary-signature --verbose "Recent Photoshop Documents.lbaction"
   ```
 
   Gatekeeper answers `accepted` and `source=Notarized Developer ID`.
