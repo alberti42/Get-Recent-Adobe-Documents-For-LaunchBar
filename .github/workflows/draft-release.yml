@@ -92,7 +92,8 @@ jobs:
       - name: Build and sign the actions
         env:
           TEAM_ID: ${{ secrets.NOTARIZATION_TEAM_ID }}
-        run: bin/build_actions.sh "Developer ID Application: Andrea Alberti ($TEAM_ID)"
+        run: |
+          bin/build_actions.sh "Developer ID Application: Andrea Alberti ($TEAM_ID)"
 
       # ── Notarize ──────────────────────────────────────────────────────────────
       - name: Notarize with Apple
