@@ -110,10 +110,11 @@ jobs:
             --password "$APP_PASS" \
             --wait --output-format json | tee "$RUNNER_TEMP/notary.json"
           STATUS=$(plutil -extract status raw "$RUNNER_TEMP/notary.json")
+          ID=$(plutil -extract id raw "$RUNNER_TEMP/notary.json")
+          # The log lists every item Apple issued a ticket for (ticketContents).
+          xcrun notarytool log "$ID" \
+            --apple-id "$APPLE_ID" --team-id "$TEAM_ID" --password "$APP_PASS"
           if [[ "$STATUS" != "Accepted" ]]; then
-            ID=$(plutil -extract id raw "$RUNNER_TEMP/notary.json")
-            xcrun notarytool log "$ID" \
-              --apple-id "$APPLE_ID" --team-id "$TEAM_ID" --password "$APP_PASS"
             echo "ERROR: notarization status $STATUS"
             exit 1
           fi
