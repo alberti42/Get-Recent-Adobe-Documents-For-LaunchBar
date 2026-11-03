@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleExecutable</key>
+	<string>GetRecentAcrobatDocuments</string>
 	<key>CFBundleIconFile</key>
 	<string>com.adobe.Acrobat.Pro:ACP_App</string>
 	<key>CFBundleIdentifier</key>

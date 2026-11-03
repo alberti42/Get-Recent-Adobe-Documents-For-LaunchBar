@@ -57,7 +57,7 @@ jobs:
       - name: Verify code signature, team and notarization
         run: |
           for APP in Acrobat Illustrator Photoshop; do
-            TOOL="extracted/Recent $APP Documents.lbaction/Contents/Scripts/GetRecent${APP}Documents"
+            TOOL="extracted/Recent $APP Documents.lbaction/Contents/MacOS/GetRecent${APP}Documents"
             codesign --verify --strict --verbose=2 "$TOOL"
             TEAM=$(codesign -dv "$TOOL" 2>&1 | sed -n 's/^TeamIdentifier=//p')
             echo "TeamIdentifier: $TEAM"

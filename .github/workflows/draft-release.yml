@@ -120,7 +120,7 @@ jobs:
           fi
 
           # Confirm Apple serves the ticket for each tool.
-          for TOOL in build/Actions/*.lbaction/Contents/Scripts/GetRecent*Documents; do
+          for TOOL in build/Actions/*.lbaction/Contents/MacOS/GetRecent*Documents; do
             codesign --verify --strict --check-notarization -R="notarized" --verbose "$TOOL"
           done
 

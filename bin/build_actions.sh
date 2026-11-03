@@ -8,9 +8,9 @@
 #
 # What it does, for Acrobat, Illustrator and Photoshop:
 #   1. Builds GetRecent<App>Documents in Release for arm64 and x86_64 with xcodebuild.
-#   2. Copies Actions/Recent <App> Documents.lbaction to build/Actions/ and puts
-#      the tool into its Contents/Scripts.
-#   3. Signs the tool, then the bundle, with the identity given as first argument
+#   2. Copies Actions/Recent <App> Documents.lbaction to build/Actions/, puts the
+#      tool into its Contents/MacOS, and links Contents/Scripts/<tool> to it.
+#   3. Signs the bundle, and with it the tool, with the identity given as first argument
 #      ("-", ad hoc, by default). A Developer ID signature gets the hardened
 #      runtime and a secure timestamp, which notarization requires.
 # Then it packs build/Actions/*.lbaction into build/Actions.zip.
@@ -45,22 +45,24 @@ for APP in "${APPS[@]}"; do
         CODE_SIGN_IDENTITY=- \
         build
 
+    # The tool is the bundle's executable (CFBundleExecutable in Contents/MacOS).
+    # LaunchBar runs Contents/Scripts/<LBScriptName>, a symlink to it.
     cp -R "$SRC" "$BUNDLE"
-    mkdir -p "$BUNDLE/Contents/Scripts"
-    cp "$DERIVED/Build/Products/Release/$TOOL" "$BUNDLE/Contents/Scripts/$TOOL"
+    mkdir -p "$BUNDLE/Contents/MacOS" "$BUNDLE/Contents/Scripts"
+    cp "$DERIVED/Build/Products/Release/$TOOL" "$BUNDLE/Contents/MacOS/$TOOL"
+    ln -s "../MacOS/$TOOL" "$BUNDLE/Contents/Scripts/$TOOL"
 
-    # The tool's signing identifier is the action's bundle identifier.
+    # Signing the bundle signs its executable; the signature is embedded in
+    # the tool. Apple's notary service issues tickets for Mach-O code only, so
+    # a bundle without an executable could not be notarized, and Gatekeeper
+    # checks the bundle when you double-click it.
     ID=$(plutil -extract CFBundleIdentifier raw "$SRC/Contents/Info.plist")
-    # Sign the tool, then the bundle: Gatekeeper checks the bundle when you
-    # double-click it, and the bundle's signature seals the signed tool.
-    for CODE in "$BUNDLE/Contents/Scripts/$TOOL" "$BUNDLE"; do
-        if [[ "$IDENTITY" == "-" ]]; then
-            codesign --force --sign - --identifier "$ID" "$CODE"
-        else
-            codesign --force --sign "$IDENTITY" --identifier "$ID" \
-                --options runtime --timestamp "$CODE"
-        fi
-    done
+    if [[ "$IDENTITY" == "-" ]]; then
+        codesign --force --sign - --identifier "$ID" "$BUNDLE"
+    else
+        codesign --force --sign "$IDENTITY" --identifier "$ID" \
+            --options runtime --timestamp "$BUNDLE"
+    fi
     codesign --verify --strict --deep "$BUNDLE"
 done
 

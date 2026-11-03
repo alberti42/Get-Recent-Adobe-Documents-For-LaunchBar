@@ -28,10 +28,11 @@ jobs:
       - name: Check the tools
         run: |
           for APP in Acrobat Illustrator Photoshop; do
-            TOOL="build/Actions/Recent $APP Documents.lbaction/Contents/Scripts/GetRecent${APP}Documents"
+            TOOL="build/Actions/Recent $APP Documents.lbaction/Contents/MacOS/GetRecent${APP}Documents"
             lipo -archs "$TOOL" | grep -q arm64
             lipo -archs "$TOOL" | grep -q x86_64
             codesign --verify --strict "$TOOL"
-            # The runner has no Adobe preferences; the tool prints nothing and exits 0.
-            "$TOOL"
+            # LaunchBar runs the symlink in Contents/Scripts. The runner has no
+            # Adobe preferences; the tool prints nothing and exits 0.
+            "build/Actions/Recent $APP Documents.lbaction/Contents/Scripts/GetRecent${APP}Documents"
           done
