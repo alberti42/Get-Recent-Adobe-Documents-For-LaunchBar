@@ -73,6 +73,10 @@ gh attestation verify Actions.zip --repo alberti42/Get-Recent-Adobe-Documents-Fo
 - Activate LaunchBar and type the name of the desired Adobe application.
 - Press space to display directly from LaunchBar the recent documents of the selected Adobe application.
 
+## Security
+
+To report a vulnerability, see [SECURITY.md](SECURITY.md).
+
 ## Donations
 
 If you find this plugin helpful, consider supporting its development with a donation.
