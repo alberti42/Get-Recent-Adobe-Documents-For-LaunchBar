@@ -9,7 +9,7 @@
 	<key>CFBundleName</key>
 	<string>Recent Illustrator Documents</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>2.0.0</string>
 	<key>LBAssociatedApplication</key>
 	<string>com.adobe.illustrator</string>
 	<key>LBDescription</key>
