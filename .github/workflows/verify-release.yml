@@ -1,6 +1,6 @@
 name: Verify Published Release
 
-# Checks the Actions.zip attached to the latest published release — the file
+# Checks the Get-Recent-Adobe-Documents-For-LaunchBar.zip attached to the latest published release — the file
 # users download — the way a user's Mac would:
 #   1. Build provenance: the ZIP was built by draft-release.yml from a tag.
 #   2. Code signature of each tool: valid, and made with the Developer ID of team 9V3X7C8VCK.
@@ -38,21 +38,21 @@ jobs:
           # Without a tag, gh picks the latest release: not a draft, not a pre-release.
           TAG=$(gh release view --repo "$REPO" --json tagName -q .tagName)
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-          gh release download "$TAG" --repo "$REPO" --pattern Actions.zip
-          shasum -a 256 Actions.zip
+          gh release download "$TAG" --repo "$REPO" --pattern Get-Recent-Adobe-Documents-For-LaunchBar.zip
+          shasum -a 256 Get-Recent-Adobe-Documents-For-LaunchBar.zip
           echo "Latest release: $TAG"
 
       - name: Verify build provenance
         env:
           TAG: ${{ steps.rel.outputs.tag }}
         run: |
-          gh attestation verify Actions.zip \
+          gh attestation verify Get-Recent-Adobe-Documents-For-LaunchBar.zip \
             --repo "$REPO" \
             --signer-workflow "$REPO/.github/workflows/draft-release.yml" \
             --source-ref "refs/tags/$TAG"
 
       - name: Extract the actions
-        run: ditto -x -k Actions.zip extracted
+        run: ditto -x -k Get-Recent-Adobe-Documents-For-LaunchBar.zip extracted
 
       - name: Verify code signature, team and notarization
         run: |

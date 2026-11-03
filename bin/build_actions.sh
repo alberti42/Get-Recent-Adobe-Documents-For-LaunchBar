@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# build_actions.sh — Build the three LaunchBar actions and pack them into build/Actions.zip.
+# build_actions.sh — Build the three LaunchBar actions and pack them into build/Get-Recent-Adobe-Documents-For-LaunchBar.zip.
 #
 # Usage:
 #   bin/build_actions.sh                     # signed ad hoc, runs on this Mac only
@@ -13,7 +13,7 @@
 #   3. Signs the bundle, and with it the tool, with the identity given as first argument
 #      ("-", ad hoc, by default). A Developer ID signature gets the hardened
 #      runtime and a secure timestamp, which notarization requires.
-# Then it packs build/Actions/*.lbaction into build/Actions.zip.
+# Then it packs build/Actions/*.lbaction into build/Get-Recent-Adobe-Documents-For-LaunchBar.zip.
 #
 # macOS kills an arm64 executable that carries no signature, so every tool is signed.
 
@@ -24,7 +24,7 @@ IDENTITY="${1:--}"
 APPS=(Acrobat Illustrator Photoshop)
 DERIVED=build/DerivedData
 OUT=build/Actions
-ZIP=build/Actions.zip
+ZIP=build/Get-Recent-Adobe-Documents-For-LaunchBar.zip
 
 rm -rf "$OUT" "$ZIP"
 mkdir -p "$OUT"
@@ -67,5 +67,5 @@ for APP in "${APPS[@]}"; do
 done
 
 # ditto keeps the bundle layout; --norsrc leaves out extended attributes.
-(cd "$OUT" && ditto -c -k --norsrc . "../Actions.zip")
+(cd "$OUT" && ditto -c -k --norsrc . "../${ZIP#build/}")
 echo "── $ZIP"

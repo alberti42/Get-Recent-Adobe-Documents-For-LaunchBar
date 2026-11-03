@@ -5,7 +5,7 @@ name: Build, Notarize and Draft Release
 # Pipeline:
 #   1. Build the three tools universal (arm64 + x86_64) with bin/build_actions.sh
 #   2. Sign each tool, then its .lbaction bundle, with the Developer ID Application certificate
-#   3. Notarize Actions.zip with Apple. stapler refuses an .lbaction bundle, so
+#   3. Notarize Get-Recent-Adobe-Documents-For-LaunchBar.zip with Apple. stapler refuses an .lbaction bundle, so
 #      Gatekeeper fetches the ticket online when an action is first opened.
 #   4. Attest build provenance for the ZIP (Sigstore, verifiable with gh attestation verify)
 #   5. Create a draft GitHub release with the ZIP attached
@@ -59,7 +59,7 @@ jobs:
             fi
           done
           echo "tag=$TAG"     >> "$GITHUB_OUTPUT"
-          echo "zip=build/Actions.zip" >> "$GITHUB_OUTPUT"
+          echo "zip=build/Get-Recent-Adobe-Documents-For-LaunchBar.zip" >> "$GITHUB_OUTPUT"
           echo "prerelease=$PRERELEASE" >> "$GITHUB_OUTPUT"
           echo "Version ${SHORT}"
 
@@ -144,13 +144,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Actions-failed-build
-          path: build/Actions.zip
+          path: build/Get-Recent-Adobe-Documents-For-LaunchBar.zip
           retention-days: 7
 
       # ── Build provenance ──────────────────────────────────────────────────────
       # Records a signed SLSA provenance statement: this ZIP (by its SHA-256) was
       # built by this workflow, from this commit and tag. To verify a downloaded ZIP:
-      #   gh attestation verify Actions.zip --repo alberti42/Get-Recent-Adobe-Documents-For-LaunchBar
+      #   gh attestation verify Get-Recent-Adobe-Documents-For-LaunchBar.zip --repo alberti42/Get-Recent-Adobe-Documents-For-LaunchBar
       - name: Attest build provenance
         uses: actions/attest@v4
         with:

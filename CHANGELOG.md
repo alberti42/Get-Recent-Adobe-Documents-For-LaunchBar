@@ -15,7 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Changed
 
 - The actions require macOS 12 or later.
-- `Actions.zip` is attached to each GitHub release, with a build provenance attestation, instead of being kept in the repository.
+- `Get-Recent-Adobe-Documents-For-LaunchBar.zip` is attached to each GitHub release, with a build provenance attestation, instead of being kept in the repository.
 
 [Unreleased]: https://github.com/alberti42/Get-Recent-Adobe-Documents-For-LaunchBar/compare/v2.0.0...HEAD
 [2.0.0]: https://github.com/alberti42/Get-Recent-Adobe-Documents-For-LaunchBar/compare/1.0.0...v2.0.0

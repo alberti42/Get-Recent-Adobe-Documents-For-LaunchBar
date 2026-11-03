@@ -8,7 +8,7 @@ This repository provides a suite of LaunchBar [actions](https://www.obdev.at/pro
 
 This repository includes the following components:
 
-- **Actions**: Pre-packaged LaunchBar actions in `Actions.zip`, attached to each [release](https://github.com/alberti42/Get-Recent-Adobe-Documents-For-LaunchBar/releases), to enable direct access to recent documents. The bundles without the compiled tools are in `Actions/`.
+- **Actions**: Pre-packaged LaunchBar actions in `Get-Recent-Adobe-Documents-For-LaunchBar.zip`, attached to each [release](https://github.com/alberti42/Get-Recent-Adobe-Documents-For-LaunchBar/releases), to enable direct access to recent documents. The bundles without the compiled tools are in `Actions/`.
 - **Source Code**:
   - **BDAlias**: Helper library for managing macOS aliases.
   - **GetRecentAcrobatDocuments**: Retrieves recent Adobe Acrobat documents.
@@ -20,7 +20,7 @@ This repository includes the following components:
 
 ### Option 1: Manual Installation
 
-1. **Download** the pre-packaged actions from the [Actions.zip](https://github.com/alberti42/Get-Recent-Adobe-Documents-For-LaunchBar/releases/latest/download/Actions.zip) of the latest release.
+1. **Download** the pre-packaged actions from the [Get-Recent-Adobe-Documents-For-LaunchBar.zip](https://github.com/alberti42/Get-Recent-Adobe-Documents-For-LaunchBar/releases/latest/download/Get-Recent-Adobe-Documents-For-LaunchBar.zip) of the latest release.
 2. **Extract** the contents, which include:
    - `Recent Acrobat Documents.lbaction`
    - `Recent Illustrator Documents.lbaction`
@@ -38,13 +38,13 @@ Alternatively, you can simply double-click each `.lbaction` file. This will auto
 
 ## Compilation Instructions
 
-Compilation from the source code is not necessary if you simply plan to use the actions. The tools in the released `Actions.zip` are signed with a Developer ID and notarized by Apple. Requirements: macOS 12 or later and Xcode.
+Compilation from the source code is not necessary if you simply plan to use the actions. The tools in the released `Get-Recent-Adobe-Documents-For-LaunchBar.zip` are signed with a Developer ID and notarized by Apple. Requirements: macOS 12 or later and Xcode.
 
 1. **Build** the three actions:
    ```
    bin/build_actions.sh
    ```
-   The script builds `GetRecentAcrobatDocuments`, `GetRecentIllustratorDocuments` and `GetRecentPhotoshopDocuments` for arm64 and x86_64, puts each tool into its bundle from `Actions/`, signs it, and packs the bundles into `build/Actions.zip`. Without an argument it signs ad hoc, which is enough to run the actions on your own Mac. To sign with a Developer ID, give the identity as argument:
+   The script builds `GetRecentAcrobatDocuments`, `GetRecentIllustratorDocuments` and `GetRecentPhotoshopDocuments` for arm64 and x86_64, puts each tool into its bundle from `Actions/`, signs it, and packs the bundles into `build/Get-Recent-Adobe-Documents-For-LaunchBar.zip`. Without an argument it signs ad hoc, which is enough to run the actions on your own Mac. To sign with a Developer ID, give the identity as argument:
    ```
    bin/build_actions.sh "Developer ID Application: Your Name (TEAMID)"
    ```
@@ -63,12 +63,12 @@ To work on the code in Xcode, open the workspace `GetRecentAdobeDocuments.xcwork
 
 1. Describe the changes under `## [Unreleased]` in `CHANGELOG.md` (Keep a Changelog 1.1.0).
 2. `bin/bump_version.sh vX.Y.Z` (or `vX.Y.Z-beta.N`): sets `CFBundleVersion` in the three `Actions/*.lbaction/Contents/Info.plist`, moves the `[Unreleased]` entries under the version with `bin/changelog.py` (releases only), commits and tags.
-3. `git push origin main --tags`. The tag starts `.github/workflows/draft-release.yml`: build with the Developer ID, notarize `Actions.zip` with `notarytool`, attest its build provenance, and create a draft release with `Actions.zip`. The release notes are the version's `CHANGELOG.md` section and a link to the commits since the previous tag. The workflow fails if the tag does not match `CFBundleVersion`.
-4. Publish the draft on GitHub. `.github/workflows/verify-release.yml` then checks the published `Actions.zip` (provenance, signature, team, notarization); it also runs weekly.
+3. `git push origin main --tags`. The tag starts `.github/workflows/draft-release.yml`: build with the Developer ID, notarize `Get-Recent-Adobe-Documents-For-LaunchBar.zip` with `notarytool`, attest its build provenance, and create a draft release with `Get-Recent-Adobe-Documents-For-LaunchBar.zip`. The release notes are the version's `CHANGELOG.md` section and a link to the commits since the previous tag. The workflow fails if the tag does not match `CFBundleVersion`.
+4. Publish the draft on GitHub. `.github/workflows/verify-release.yml` then checks the published `Get-Recent-Adobe-Documents-For-LaunchBar.zip` (provenance, signature, team, notarization); it also runs weekly.
 
-To verify a downloaded `Actions.zip`:
+To verify a downloaded `Get-Recent-Adobe-Documents-For-LaunchBar.zip`:
 ```
-gh attestation verify Actions.zip --repo alberti42/Get-Recent-Adobe-Documents-For-LaunchBar
+gh attestation verify Get-Recent-Adobe-Documents-For-LaunchBar.zip --repo alberti42/Get-Recent-Adobe-Documents-For-LaunchBar
 ```
 
 ## Usage
