@@ -14,7 +14,10 @@
 #   3. Ensures the tag does not already exist.
 #   4. Sets CFBundleVersion (X.Y.Z without the -beta.N suffix) in
 #      Actions/*.lbaction/Contents/Info.plist. LaunchBar shows it as the action's version.
-#   5. Commits with "Version bump to vX.Y.Z" and creates a local git tag vX.Y.Z.
+#   5. For a release, moves the [Unreleased] entries of CHANGELOG.md under
+#      "## [X.Y.Z] - date" (bin/changelog.py). A pre-release leaves them under
+#      [Unreleased].
+#   6. Commits with "Version bump to vX.Y.Z" and creates a local git tag vX.Y.Z.
 #
 # Pushing the tag starts .github/workflows/draft-release.yml, which builds,
 # signs, notarizes and drafts the GitHub release. Push manually when ready:
@@ -47,6 +50,14 @@ PLISTS=(Actions/*.lbaction/Contents/Info.plist)
 for PLIST in "${PLISTS[@]}"; do
     plutil -replace CFBundleVersion -string "$BASE" "$PLIST"
 done
+
+if [[ "$SHORT" == "$BASE" ]]; then
+    if ! python3 bin/changelog.py release "$BASE"; then
+        git checkout -- "${PLISTS[@]}"
+        exit 1
+    fi
+    git add CHANGELOG.md
+fi
 
 git add "${PLISTS[@]}"
 if git diff --cached --quiet; then

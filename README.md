@@ -59,9 +59,10 @@ To work on the code in Xcode, open the workspace `GetRecentAdobeDocuments.xcwork
 
 ## Releasing
 
-1. `bin/bump_version.sh vX.Y.Z` (or `vX.Y.Z-beta.N`): sets `CFBundleVersion` in the three `Actions/*.lbaction/Contents/Info.plist`, commits and tags.
-2. `git push origin main --tags`. The tag starts `.github/workflows/draft-release.yml`: build with the Developer ID, notarize `Actions.zip` with `notarytool`, attest its build provenance, and create a draft release with `Actions.zip`. The workflow fails if the tag does not match `CFBundleVersion`.
-3. Publish the draft on GitHub. `.github/workflows/verify-release.yml` then checks the published `Actions.zip` (provenance, signature, team, notarization); it also runs weekly.
+1. Describe the changes under `## [Unreleased]` in `CHANGELOG.md` (Keep a Changelog 1.1.0).
+2. `bin/bump_version.sh vX.Y.Z` (or `vX.Y.Z-beta.N`): sets `CFBundleVersion` in the three `Actions/*.lbaction/Contents/Info.plist`, moves the `[Unreleased]` entries under the version with `bin/changelog.py` (releases only), commits and tags.
+3. `git push origin main --tags`. The tag starts `.github/workflows/draft-release.yml`: build with the Developer ID, notarize `Actions.zip` with `notarytool`, attest its build provenance, and create a draft release with `Actions.zip`. The release notes are the version's `CHANGELOG.md` section and a link to the commits since the previous tag. The workflow fails if the tag does not match `CFBundleVersion`.
+4. Publish the draft on GitHub. `.github/workflows/verify-release.yml` then checks the published `Actions.zip` (provenance, signature, team, notarization); it also runs weekly.
 
 To verify a downloaded `Actions.zip`:
 ```

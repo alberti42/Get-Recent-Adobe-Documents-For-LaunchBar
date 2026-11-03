@@ -136,16 +136,17 @@ jobs:
       - name: Resolve previous tag
         id: prev
         run: |
-          CURR="${GITHUB_REF_NAME}"
-          # versionsort.suffix sorts v1.1.0-beta.1 before v1.1.0. A release compares
-          # against the previous release, so its notes cover its pre-releases too;
+          # The nearest tag before this one in the history. A release skips
+          # pre-release tags, so its comparison covers its pre-releases too;
           # a pre-release compares against the previous tag of either kind.
-          TAGS=$(git -c versionsort.suffix=-beta tag --list 'v*' --sort=-v:refname)
-          if [[ "$CURR" != *-* ]]; then TAGS=$(echo "$TAGS" | grep -v -e '-' || true); fi
-          # The tag listed right after the current one, in descending version order.
-          # Empty for the first release.
-          PREV=$(echo "$TAGS" | awk -v c="$CURR" 'found {print; exit} $0 == c {found=1}')
+          # Empty for the first tag.
+          if [[ "$GITHUB_REF_NAME" == *-* ]]; then
+            PREV=$(git describe --tags --abbrev=0 "${GITHUB_REF_NAME}^" 2>/dev/null || true)
+          else
+            PREV=$(git describe --tags --abbrev=0 --exclude '*-*' "${GITHUB_REF_NAME}^" 2>/dev/null || true)
+          fi
           echo "tag=${PREV}" >> "$GITHUB_OUTPUT"
+          echo "Previous tag: ${PREV:-none}"
 
       - name: Build release notes
         env:
@@ -153,22 +154,22 @@ jobs:
           CURR_TAG: ${{ steps.ver.outputs.tag }}
           REPO:     ${{ github.repository }}
         run: |
+          # The notes are this version's CHANGELOG.md section; a pre-release uses
+          # [Unreleased], where its changes stay until the release. They end with
+          # the compare link, which lists the commits since the previous tag.
+          SHORT="${CURR_TAG#v}"
+          if [[ "$SHORT" == *-* ]]; then SECTION=Unreleased; else SECTION="$SHORT"; fi
+          ENTRY=$(python3 bin/changelog.py section "$SECTION" || true)
           if [[ -n "$PREV_TAG" ]]; then
-            RANGE="${PREV_TAG}..HEAD"
-            SINCE="since ${PREV_TAG}"
-            DIFF="**Full diff:** https://github.com/${REPO}/compare/${PREV_TAG}...${CURR_TAG}"
+            LINK="**Full Changelog**: https://github.com/${REPO}/compare/${PREV_TAG}...${CURR_TAG}"
           else
-            RANGE="HEAD"
-            SINCE="in this first release"
-            DIFF=""
+            LINK="**Full Changelog**: https://github.com/${REPO}/commits/${CURR_TAG}"
           fi
-          COMMITS=$(git log "$RANGE" --oneline --no-merges \
-            | sed "s|^\([0-9a-f]*\) |- [\1](https://github.com/${REPO}/commit/\1) |")
           {
-            printf '## Changes %s\n\n' "$SINCE"
-            printf '%s\n\n' "${COMMITS:-_No commits listed._}"
-            if [[ -n "$DIFF" ]]; then printf '%s\n' "$DIFF"; fi
+            if [[ -n "$ENTRY" ]]; then printf '%s\n\n' "$ENTRY"; fi
+            printf '%s\n' "$LINK"
           } > "$RUNNER_TEMP/notes.md"
+          cat "$RUNNER_TEMP/notes.md"
 
       - name: Create draft GitHub release
         env:
