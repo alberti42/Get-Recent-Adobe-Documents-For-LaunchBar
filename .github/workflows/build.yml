@@ -1,0 +1,37 @@
+name: Build
+
+# Builds the three actions, signed ad hoc, on every push to main and every pull
+# request. Catches compile errors with the runner's Xcode before a release tag
+# is pushed. Needs no secrets.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Show toolchain
+        run: xcodebuild -version
+
+      - name: Build the actions
+        run: bin/build_actions.sh
+
+      - name: Check the tools
+        run: |
+          for APP in Acrobat Illustrator Photoshop; do
+            TOOL="build/Actions/Recent $APP Documents.lbaction/Contents/Scripts/GetRecent${APP}Documents"
+            lipo -archs "$TOOL" | grep -q arm64
+            lipo -archs "$TOOL" | grep -q x86_64
+            codesign --verify --strict "$TOOL"
+            # The runner has no Adobe preferences; the tool prints nothing and exits 0.
+            "$TOOL"
+          done

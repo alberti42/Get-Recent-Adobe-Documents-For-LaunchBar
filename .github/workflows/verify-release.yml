@@ -1,0 +1,64 @@
+name: Verify Published Release
+
+# Checks the Actions.zip attached to the latest published release — the file
+# users download — the way a user's Mac would:
+#   1. Build provenance: the ZIP was built by draft-release.yml from a tag.
+#   2. Code signature of each tool: valid, and made with the Developer ID of team 9V3X7C8VCK.
+#   3. Notarization: Apple serves a ticket for each tool.
+#
+# Runs weekly, when a release is published, and on demand. A check can fail with
+# no new release, for example if Apple revokes the certificate or the ticket.
+# Needs no secrets.
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'   # Mondays, 06:00 UTC
+  release:
+    types: [released]
+  workflow_dispatch:
+
+permissions:
+  contents: read       # download the release asset
+  attestations: read   # read the build provenance attestation
+
+jobs:
+  verify:
+    runs-on: macos-26
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO:     ${{ github.repository }}
+      TEAM_ID:  9V3X7C8VCK
+
+    steps:
+      - name: Download the latest release
+        id: rel
+        run: |
+          # Without a tag, gh picks the latest release: not a draft, not a pre-release.
+          TAG=$(gh release view --repo "$REPO" --json tagName -q .tagName)
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          gh release download "$TAG" --repo "$REPO" --pattern Actions.zip
+          shasum -a 256 Actions.zip
+          echo "Latest release: $TAG"
+
+      - name: Verify build provenance
+        env:
+          TAG: ${{ steps.rel.outputs.tag }}
+        run: |
+          gh attestation verify Actions.zip \
+            --repo "$REPO" \
+            --signer-workflow "$REPO/.github/workflows/draft-release.yml" \
+            --source-ref "refs/tags/$TAG"
+
+      - name: Extract the actions
+        run: ditto -x -k Actions.zip extracted
+
+      - name: Verify code signature, team and notarization
+        run: |
+          for APP in Acrobat Illustrator Photoshop; do
+            TOOL="extracted/Recent $APP Documents.lbaction/Contents/Scripts/GetRecent${APP}Documents"
+            codesign --verify --strict --verbose=2 "$TOOL"
+            TEAM=$(codesign -dv "$TOOL" 2>&1 | sed -n 's/^TeamIdentifier=//p')
+            echo "TeamIdentifier: $TEAM"
+            test "$TEAM" = "$TEAM_ID"
+            codesign --verify --strict --check-notarization -R="notarized" --verbose "$TOOL"
+          done

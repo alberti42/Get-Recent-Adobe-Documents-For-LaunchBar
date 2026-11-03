@@ -8,7 +8,7 @@ This repository provides a suite of LaunchBar [actions](https://www.obdev.at/pro
 
 This repository includes the following components:
 
-- **Actions**: Pre-packaged LaunchBar actions in `Actions.zip` to enable direct access to recent documents.
+- **Actions**: Pre-packaged LaunchBar actions in `Actions.zip`, attached to each [release](https://github.com/alberti42/Get-Recent-Adobe-Documents-For-LaunchBar/releases), to enable direct access to recent documents. The bundles without the compiled tools are in `Actions/`.
 - **Source Code**:
   - **BDAlias**: Helper library for managing macOS aliases.
   - **GetRecentAcrobatDocuments**: Retrieves recent Adobe Acrobat documents.
@@ -20,7 +20,7 @@ This repository includes the following components:
 
 ### Option 1: Manual Installation
 
-1. **Download** the pre-packaged actions from the [Actions.zip](https://github.com/alberti42/Get-Recent-Adobe-Documents-For-LaunchBar/raw/refs/heads/main/Actions.zip).
+1. **Download** the pre-packaged actions from the [Actions.zip](https://github.com/alberti42/Get-Recent-Adobe-Documents-For-LaunchBar/releases/latest/download/Actions.zip) of the latest release.
 2. **Extract** the contents, which include:
    - `Recent Acrobat Documents.lbaction`
    - `Recent Illustrator Documents.lbaction`
@@ -38,35 +38,35 @@ Alternatively, you can simply double-click each `.lbaction` file. This will auto
 
 ## Compilation Instructions
 
-To compile the `GetRecentPhotoshopDocuments`, `GetRecentIllustratorDocuments`, and `GetRecentAcrobatDocuments` programs from the source code, follow the steps below. Compilation from the source code should however not be necessary if you simply plan to use the actions.
+Compilation from the source code is not necessary if you simply plan to use the actions. The tools in the released `Actions.zip` are signed with a Developer ID and notarized by Apple. Requirements: macOS 12 or later and Xcode.
 
-1. **Open the Workspace**:
-   - Open the Xcode workspace `GetRecentAdobeDocuments.xcworkspace`, which is located at the root of the project directory:
+1. **Build** the three actions:
    ```
-   open GetRecentAdobeDocuments.xcworkspace
+   bin/build_actions.sh
+   ```
+   The script builds `GetRecentAcrobatDocuments`, `GetRecentIllustratorDocuments` and `GetRecentPhotoshopDocuments` for arm64 and x86_64, puts each tool into its bundle from `Actions/`, signs it, and packs the bundles into `build/Actions.zip`. Without an argument it signs ad hoc, which is enough to run the actions on your own Mac. To sign with a Developer ID, give the identity as argument:
+   ```
+   bin/build_actions.sh "Developer ID Application: Your Name (TEAMID)"
+   ```
+   macOS kills an arm64 executable that carries no signature, so every tool must be signed.
+
+2. **Install** the built actions by double-clicking each bundle in `build/Actions/`, or copy them to:
+   ```
+   ~/Library/Application Support/LaunchBar/Actions
    ```
 
-2. **Select the Scheme**:
-   - In Xcode, use the scheme selector in the toolbar to select one of the targets:
-     - `GetRecentPhotoshopDocuments`
-     - `GetRecentIllustratorDocuments`
-     - `GetRecentAcrobatDocuments`
+To work on the code in Xcode, open the workspace `GetRecentAdobeDocuments.xcworkspace` and select one of the schemes `GetRecentAcrobatDocuments`, `GetRecentIllustratorDocuments` or `GetRecentPhotoshopDocuments`.
 
-3. **Set Build Configuration**:
-   - Go to **Edit Scheme** for each target and ensure the **Build Configuration** is set to `Release` for the final production build.
+## Releasing
 
-4. **Build the Selected Target**:
-   - Select **Product > Build** to build the selected scheme. This will compile the program and place the output in the `BUILT_PRODUCTS_DIR`.
+1. `bin/bump_version.sh vX.Y.Z` (or `vX.Y.Z-beta.N`): sets `CFBundleVersion` in the three `Actions/*.lbaction/Contents/Info.plist`, commits and tags.
+2. `git push origin main --tags`. The tag starts `.github/workflows/draft-release.yml`: build with the Developer ID, notarize `Actions.zip` with `notarytool`, attest its build provenance, and create a draft release with `Actions.zip`. The workflow fails if the tag does not match `CFBundleVersion`.
+3. Publish the draft on GitHub. `.github/workflows/verify-release.yml` then checks the published `Actions.zip` (provenance, signature, team, notarization); it also runs weekly.
 
-5. **Repeat for Each Program**:
-   - Repeat steps 2 to 4 for each program (`GetRecentPhotoshopDocuments`, `GetRecentIllustratorDocuments`, and `GetRecentAcrobatDocuments`) to produce all three executables.
-
-6. **Manual Copy to LaunchBar Actions**:
-   - After building, copy each executable to its respective directory in:
-     ```
-     ~/Library/Application Support/LaunchBar/Actions/Recent [Application Name] Documents.lbaction/Contents/Scripts
-     ```
-   - Replace `[Application Name]` with `Photoshop`, `Illustrator`, or `Acrobat` as appropriate.
+To verify a downloaded `Actions.zip`:
+```
+gh attestation verify Actions.zip --repo alberti42/Get-Recent-Adobe-Documents-For-LaunchBar
+```
 
 ## Usage
 
