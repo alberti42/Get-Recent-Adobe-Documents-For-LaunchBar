@@ -1,5 +1,9 @@
 # Get Recent Adobe Documents for LaunchBar
 
+[![made for LaunchBar](https://img.shields.io/badge/made%20for-LaunchBar-blue)](https://www.obdev.at/products/launchbar/index.html)
+[![notarized download](https://img.shields.io/github/actions/workflow/status/alberti42/Get-Recent-Adobe-Documents-For-LaunchBar/verify-release.yml?label=notarized%20download&logo=apple)](https://github.com/alberti42/Get-Recent-Adobe-Documents-For-LaunchBar/actions/workflows/verify-release.yml)
+[![license](https://img.shields.io/github/license/alberti42/Get-Recent-Adobe-Documents-For-LaunchBar)](LICENSE)
+
 This repository provides a suite of LaunchBar [actions](https://www.obdev.at/products/launchbar/actions.html) for accessing recent Adobe documents. The actions are designed to streamline access to recent files for users working with Adobe [Acrobat](https://www.adobe.com/acrobat.html), [Photoshop](https://www.adobe.com/products/photoshop.html), and [Illustrator](https://www.adobe.com/products/illustrator.html).
 
 <img alt="Screenshot" src="Images/Photoshop_screenshot.jpg" width="1102">
